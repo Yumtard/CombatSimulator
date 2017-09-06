@@ -10,7 +10,7 @@ Gun::Gun(const int damageFar_in, const int damageNear_in, const int magazineSize
 	cooldownTimer(fireRate_in)
 {}
 
-void Gun::Update(const float deltaTime, std::string name)
+void Gun::Update(const float deltaTime, std::string& heroName)
 {
 	cooldownTimer.Update(deltaTime);
 
@@ -21,12 +21,12 @@ void Gun::Update(const float deltaTime, std::string name)
 		if (reloadTimer.limitReached())
 		{
 			Reload();
-			std::cout << name << " reloaded.\n" << std::endl;
+			std::cout << heroName << " reloaded.\n" << std::endl;
 		}
 	}
 }
 
-bool Gun::Shoot(const std::string opponentName, const std::string heroName)
+bool Gun::Shoot(const std::string& opponentName, const std::string& heroName)
 {
 	if (cooldownTimer.limitReached() && HasBullets())
 	{

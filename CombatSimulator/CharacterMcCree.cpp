@@ -1,6 +1,6 @@
 #include "CharacterMcCree.h"
 
-CharacterMcCree::CharacterMcCree(const std::string name_in, const int health_in, Gun& rRevolver_in)
+CharacterMcCree::CharacterMcCree(const std::string& name_in, const int health_in, Gun& rRevolver_in)
 	:
 	Character(name_in, health_in),
 	rRevolver(rRevolver_in)

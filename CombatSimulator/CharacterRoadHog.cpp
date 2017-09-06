@@ -1,6 +1,6 @@
 #include "CharacterRoadHog.h"
 
-CharacterRoadHog::CharacterRoadHog(const std::string name_in, const int health_in, Gun & rScrapGun_in, TauntPole& rTauntPole_in, 
+CharacterRoadHog::CharacterRoadHog(const std::string& name_in, const int health_in, Gun & rScrapGun_in, TauntPole& rTauntPole_in, 
 	float specialAttackTimeLimit, float weaponSwitchTimeLimit)
 	:
 	Character(name_in, health_in),

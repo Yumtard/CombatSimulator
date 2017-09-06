@@ -1,6 +1,6 @@
 #include "Character.h"
 
-Character::Character(const std::string name_in, const int health_in)
+Character::Character(const std::string& name_in, const int health_in)
 	:
 	name(name_in),
 	health(health_in)

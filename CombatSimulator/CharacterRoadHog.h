@@ -10,7 +10,7 @@ class CharacterRoadHog :
 	public Character
 {
 public:
-	CharacterRoadHog(const std::string name_in, const int health_in, Gun& rScrapGun_in, TauntPole& rTauntPole_in, 
+	CharacterRoadHog(const std::string& name_in, const int health_in, Gun& rScrapGun_in, TauntPole& rTauntPole_in, 
 		float specialAttackTimeLimit, float weaponSwitchTimeLimit);
 	enum WeaponType
 	{
