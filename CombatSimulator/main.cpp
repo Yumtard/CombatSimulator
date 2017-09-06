@@ -20,11 +20,13 @@ void Draw()
 int main()
 {
 	//Variables
+	const std::string roadHogName = "RoadHog";
+	const std::string mcCreeName = "McCree";
 	Gun revolver(35, 70, 6, 1.5f, 0.5f);
 	Gun scrapGun(20, 255, 4, 1.5f, 1.0f);
 	TauntPole tauntPole(1.0f);
-	CharacterMcCree mcCree("McCree", 200, revolver);
-	CharacterRoadHog roadHog("RoadHog", 600, scrapGun, tauntPole, 30.0f, 2.0f);
+	CharacterMcCree mcCree(mcCreeName, 200, revolver);
+	CharacterRoadHog roadHog(roadHogName, 600, scrapGun, tauntPole, 30.0f, 2.0f);
 	const float deltaTime = 0.1f;
 	bool running = true;
 

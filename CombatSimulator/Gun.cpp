@@ -10,7 +10,7 @@ Gun::Gun(const int damageFar_in, const int damageNear_in, const int magazineSize
 	cooldownTimer(fireRate_in)
 {}
 
-void Gun::Update(const float deltaTime, std::string& heroName)
+void Gun::Update(const float deltaTime, const std::string& heroName)
 {
 	cooldownTimer.Update(deltaTime);
 
