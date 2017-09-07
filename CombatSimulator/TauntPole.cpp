@@ -1,8 +1,8 @@
 #include "TauntPole.h"
 
-TauntPole::TauntPole(float cooldown, const std::string& ownerName_in)
+TauntPole::TauntPole(float cooldown, const std::string& ownerName_in, const std::string name_in)
 	:
-	Weapon(cooldown, ownerName_in),
+	Weapon(cooldown, ownerName_in, name_in),
 	rng(rd())
 {
 	std::ifstream in("insults.txt");

@@ -25,12 +25,12 @@ int main()
 
 	//Variables roadhog
 	const std::string roadHogName = "RoadHog";
-	Gun scrapGun(20, 255, 4, 1.5f, 1.0f, roadHogName);
-	TauntPole tauntPole(1.0f, roadHogName);
+	Gun scrapGun(20, 255, 4, 1.5f, 1.0f, roadHogName, "Scrap gun");
+	TauntPole tauntPole(1.0f, roadHogName, "Taunt Pole");
 
 	//variables mccree
 	const std::string mcCreeName = "McCree";
-	Gun revolver(35, 70, 6, 1.5f, 0.5f, mcCreeName);
+	Gun revolver(35, 70, 6, 1.5f, 0.5f, mcCreeName, "Revolver");
 
 	//Characters
 	CharacterMcCree mcCree(mcCreeName, 200);

@@ -12,11 +12,10 @@ class TauntPole :
 	public Weapon
 {
 public:
-	TauntPole(float cooldown, const std::string& ownerName_in);
+	TauntPole(float cooldown, const std::string& ownerName_in, const std::string name_in);
 	virtual bool Attack(const std::string& targetName, const std::string& heroName) override;
 
 private:
-	const std::string name = "Taunt Pole";
 	std::random_device rd;
 	std::mt19937 rng;
 	std::vector<std::string> insults;
