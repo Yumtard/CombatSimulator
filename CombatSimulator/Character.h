@@ -10,7 +10,7 @@ class Character
 public:
 	Character(const std::string& name_in, const int health_in);
 	virtual void Update(const float deltaTime); 
-	virtual void SpecialAttack();
+	virtual void SpecialAttack() = 0;
 	int GetHealth() const;
 	void IsCloseCombat();
 	void TakeDamage(const int damage);

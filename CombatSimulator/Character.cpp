@@ -15,11 +15,6 @@ void Character::Update(const float deltaTime)
 	}
 }
 
-void Character::SpecialAttack()
-{
-	std::cout << name << " used his special Attack!\n";
-}
-
 int Character::GetHealth() const
 {
 	return health;
