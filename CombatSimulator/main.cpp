@@ -32,19 +32,14 @@ int main()
 	const std::string mcCreeName = "McCree";
 	Gun revolver(35, 70, 6, 1.5f, 0.5f, mcCreeName);
 
-	//pointers
-	Weapon* pRevolver = &revolver;
-	Weapon* pScrapGun = &scrapGun;
-	Weapon* pTauntPole = &tauntPole;
-
 	//Characters
 	CharacterMcCree mcCree(mcCreeName, 200);
 	CharacterRoadHog roadHog(roadHogName, 600, 30.0f, 2.0f);
 	
 	//Adding weapons and setting targets
-	mcCree.AddWeapon(pRevolver);
-	roadHog.AddWeapon(pScrapGun);
-	roadHog.AddWeapon(pTauntPole);
+	mcCree.AddWeapon(&revolver);
+	roadHog.AddWeapon(&scrapGun);
+	roadHog.AddWeapon(&tauntPole);
 	mcCree.SetTarget(&roadHog);
 	roadHog.SetTarget(&mcCree);
 
