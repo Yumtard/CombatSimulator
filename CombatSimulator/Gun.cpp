@@ -1,16 +1,15 @@
 #include "Gun.h"
 
-Gun::Gun(const int damageFar_in, const int damageNear_in, const int magazineSize_in, const float reloadTime_in, const float fireRate_in)
+Gun::Gun(const int damageFar_in, const int damageNear_in, const int magazineSize_in, 
+	const float reloadTime_in, const float fireRate_in, const std::string& ownerName_in)
 	:
-	damageFar(damageFar_in),
-	damageNear(damageNear_in),
+	Weapon(fireRate_in, ownerName_in, damageNear_in, damageFar_in),
 	magazineSize(magazineSize_in),
 	bulletsLeft(magazineSize_in),
-	reloadTimer(reloadTime_in),
-	cooldownTimer(fireRate_in)
+	reloadTimer(reloadTime_in)
 {}
 
-void Gun::Update(const float deltaTime, const std::string& heroName)
+void Gun::Update(const float deltaTime)
 {
 	cooldownTimer.Update(deltaTime);
 
@@ -21,20 +20,19 @@ void Gun::Update(const float deltaTime, const std::string& heroName)
 		if (reloadTimer.limitReached())
 		{
 			Reload();
-			std::cout << heroName << " reloaded.\n" << std::endl;
+			std::cout << ownerName << " reloaded.\n" << std::endl;
 		}
 	}
 }
 
-bool Gun::Shoot(const std::string& opponentName, const std::string& heroName)
+bool Gun::Attack(const std::string& targetName, const std::string& heroName)
 {
 	if (cooldownTimer.limitReached() && HasBullets())
 	{
 		--bulletsLeft;
-		std::cout << heroName << " shot " << opponentName << std::endl;
+		std::cout << heroName << " shot " << targetName << std::endl;
 		return true;
 	}
-	
 	return false;
 }
 
@@ -43,22 +41,13 @@ void Gun::Reload()
 	bulletsLeft = magazineSize;
 }
 
-int Gun::GetDamageNear() const
-{
-	return damageNear;
-}
-
-int Gun::GetDamageFar() const
-{
-	return damageFar;
-}
-
 bool Gun::HasBullets() const
 {
 	return bulletsLeft > 0;
 }
 
-void Gun::ResetReloadTimer()
+void Gun::Reset()
 {
 	reloadTimer.Reset();
+	cooldownTimer.Reset();
 }

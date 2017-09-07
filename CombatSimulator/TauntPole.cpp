@@ -1,21 +1,16 @@
 #include "TauntPole.h"
 
-TauntPole::TauntPole(float cooldown)
+TauntPole::TauntPole(float cooldown, const std::string& ownerName_in)
 	:
-	rng(rd()),
-	cooldownTimer(cooldown)
+	Weapon(cooldown, ownerName_in),
+	rng(rd())
 {}
 
-void TauntPole::Update(float deltaTime, const std::string& heroName)
-{
-	cooldownTimer.Update(deltaTime);
-} 
-
-void TauntPole::Attack(const std::string & heroName)
+bool TauntPole::Attack(const std::string& targetName, const std::string & heroName)
 {
 	if (cooldownTimer.limitReached())
 	{
-		std::cout << heroName << " used his " << name << " and it displayed this message:" << std::endl;
+		std::cout << heroName << " used his " << name << " and it displayed this message to " << targetName << ":" << std::endl;
 		std::uniform_int_distribution<int> dist(1, 10);
 		const int msg = dist(rng);
 
@@ -52,5 +47,9 @@ void TauntPole::Attack(const std::string & heroName)
 			std::cout << "\"Did you know they used to be called \"Jumpolines\" until your mom jumped on one?\"\n\n";
 			break;
 		}
+
+		return true;
 	}
+
+	return false;
 }

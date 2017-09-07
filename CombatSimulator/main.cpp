@@ -22,16 +22,24 @@ int main()
 	//Variables
 	const std::string roadHogName = "RoadHog";
 	const std::string mcCreeName = "McCree";
-	Gun revolver(35, 70, 6, 1.5f, 0.5f);
-	Gun scrapGun(20, 255, 4, 1.5f, 1.0f);
-	TauntPole tauntPole(1.0f);
-	CharacterMcCree mcCree(mcCreeName, 200, revolver);
-	CharacterRoadHog roadHog(roadHogName, 600, scrapGun, tauntPole, 30.0f, 2.0f);
+	Gun revolver(35, 70, 6, 1.5f, 0.5f, mcCreeName);
+	Gun scrapGun(20, 255, 4, 1.5f, 1.0f, roadHogName);
+	TauntPole tauntPole(1.0f, roadHogName);
+	Weapon* pRevolver = &revolver;
+	Weapon* pScrapGun = &scrapGun;
+	Weapon* pTauntPole = &tauntPole;
+	CharacterMcCree mcCree(mcCreeName, 200);
+	CharacterRoadHog roadHog(roadHogName, 600, 30.0f, 2.0f);
 	const float deltaTime = 0.1f;
 	bool running = true;
 
-	mcCree.SetOpponent(&roadHog);
-	roadHog.SetOpponent(&mcCree);
+	mcCree.AddWeapon(pRevolver);
+	roadHog.AddWeapon(pScrapGun);
+	roadHog.AddWeapon(pTauntPole);
+
+	mcCree.SetTarget(&roadHog);
+	roadHog.SetTarget(&mcCree);
+
 
 	//Simulation loop
 	while (running)

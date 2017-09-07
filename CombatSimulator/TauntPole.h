@@ -1,20 +1,20 @@
 #pragma once
 
 #include "Timer.h"
+#include "Weapon.h"
 #include <string>
 #include <iostream>
 #include <random>
 
-class TauntPole
+class TauntPole :
+	public Weapon
 {
 public:
-	TauntPole(float cooldown);
-	void Update(float deltaTime, const std::string& heroName);
-	void Attack(const std::string& heroName);
+	TauntPole(float cooldown, const std::string& ownerName_in);
+	virtual bool Attack(const std::string& targetName, const std::string& heroName) override;
 
 private:
 	const std::string name = "Taunt Pole";
 	std::random_device rd;
 	std::mt19937 rng;
-	Timer cooldownTimer;
 };
