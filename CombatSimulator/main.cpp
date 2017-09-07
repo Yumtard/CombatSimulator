@@ -19,30 +19,34 @@ void Draw()
 
 int main()
 {
-	//Variables
-	const std::string roadHogName = "RoadHog";
-	const std::string mcCreeName = "McCree";
-	Gun revolver(35, 70, 6, 1.5f, 0.5f, mcCreeName);
-	Gun scrapGun(20, 255, 4, 1.5f, 1.0f, roadHogName);
-	TauntPole tauntPole(1.0f, roadHogName);
-	Gun lol(1, 1, 14, 1.0f, 0.1f, roadHogName);
-	Weapon* pLol = &lol;
-	Weapon* pRevolver = &revolver;
-	Weapon* pScrapGun = &scrapGun;
-	Weapon* pTauntPole = &tauntPole;
-	CharacterMcCree mcCree(mcCreeName, 200);
-	CharacterRoadHog roadHog(roadHogName, 600, 30.0f, 2.0f);
+	//Variables simulation
 	const float deltaTime = 0.1f;
 	bool running = true;
 
+	//Variables roadhog
+	const std::string roadHogName = "RoadHog";
+	Gun scrapGun(20, 255, 4, 1.5f, 1.0f, roadHogName);
+	TauntPole tauntPole(1.0f, roadHogName);
+
+	//variables mccree
+	const std::string mcCreeName = "McCree";
+	Gun revolver(35, 70, 6, 1.5f, 0.5f, mcCreeName);
+
+	//pointers
+	Weapon* pRevolver = &revolver;
+	Weapon* pScrapGun = &scrapGun;
+	Weapon* pTauntPole = &tauntPole;
+
+	//Characters
+	CharacterMcCree mcCree(mcCreeName, 200);
+	CharacterRoadHog roadHog(roadHogName, 600, 30.0f, 2.0f);
+	
+	//Adding weapons and setting targets
 	mcCree.AddWeapon(pRevolver);
 	roadHog.AddWeapon(pScrapGun);
 	roadHog.AddWeapon(pTauntPole);
-	roadHog.AddWeapon(pLol);
-
 	mcCree.SetTarget(&roadHog);
 	roadHog.SetTarget(&mcCree);
-
 
 	//Simulation loop
 	while (running)
