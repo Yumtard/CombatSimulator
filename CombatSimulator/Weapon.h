@@ -16,7 +16,6 @@ public:
 	virtual void Reset();
 
 protected:
-	int ID;
 	Timer cooldownTimer;
 	const std::string& ownerName;
 	int damageNear = 0;

@@ -25,6 +25,8 @@ int main()
 	Gun revolver(35, 70, 6, 1.5f, 0.5f, mcCreeName);
 	Gun scrapGun(20, 255, 4, 1.5f, 1.0f, roadHogName);
 	TauntPole tauntPole(1.0f, roadHogName);
+	Gun lol(1, 1, 14, 1.0f, 0.1f, roadHogName);
+	Weapon* pLol = &lol;
 	Weapon* pRevolver = &revolver;
 	Weapon* pScrapGun = &scrapGun;
 	Weapon* pTauntPole = &tauntPole;
@@ -36,6 +38,7 @@ int main()
 	mcCree.AddWeapon(pRevolver);
 	roadHog.AddWeapon(pScrapGun);
 	roadHog.AddWeapon(pTauntPole);
+	roadHog.AddWeapon(pLol);
 
 	mcCree.SetTarget(&roadHog);
 	roadHog.SetTarget(&mcCree);
