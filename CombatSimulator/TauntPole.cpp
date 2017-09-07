@@ -6,7 +6,7 @@ TauntPole::TauntPole(float cooldown, const std::string& ownerName_in)
 	rng(rd())
 {}
 
-bool TauntPole::Attack(const std::string& targetName, const std::string & heroName)
+bool TauntPole::Attack(const std::string& targetName, const std::string& heroName)
 {
 	if (cooldownTimer.limitReached())
 	{

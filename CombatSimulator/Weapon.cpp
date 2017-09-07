@@ -19,16 +19,6 @@ void Weapon::Update(const float deltaTime)
 	cooldownTimer.Update(deltaTime);
 }
 
-bool Weapon::Attack(const std::string& targetName, const std::string& heroName)
-{
-	if (cooldownTimer.limitReached())
-	{
-		std::cout << heroName << " shot....Phew! phew! " << targetName << " took damage." << std::endl;
-		return true;
-	}
-	return false;
-}
-
 int Weapon::GetDamageFar() const
 {
 	return damageFar;
