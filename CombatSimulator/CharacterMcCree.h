@@ -8,6 +8,7 @@ class CharacterMcCree :
 {
 public:
 	CharacterMcCree(const std::string& name_in, const int health_in);
+	virtual void SpecialAttack() override;
 
 private:
 };

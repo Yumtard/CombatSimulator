@@ -5,6 +5,8 @@
 #include <string>
 #include <iostream>
 #include <random>
+#include <fstream>
+#include <vector>
 
 class TauntPole :
 	public Weapon
@@ -17,4 +19,5 @@ private:
 	const std::string name = "Taunt Pole";
 	std::random_device rd;
 	std::mt19937 rng;
+	std::vector<std::string> insults;
 };
