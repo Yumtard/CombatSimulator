@@ -4,6 +4,9 @@
 #include "CharacterRoadHog.h"
 #include "Gun.h"
 #include "TauntPole.h"
+#include "WeaponData.h"
+#include "WeaponData.h"
+#include "Weapon.h"
 
 //Displays a message for when the combat is over
 void Summary(Character& winner, Character& loser)
@@ -20,21 +23,57 @@ void Draw()
 int main()
 {
 	//Variables simulation
-	const float deltaTime = 0.1f;
+	const float dt = 0.1f;
 	bool running = true;
 
-	//Variables roadhog
-	const std::string roadHogName = "RoadHog";
-	Gun scrapGun(20, 255, 4, 1.5f, 1.0f, roadHogName, "Scrap gun");
-	TauntPole tauntPole(1.0f, roadHogName, "Taunt Pole");
+	//roadhog character
+	CharacterData roadHogData;
+	roadHogData.maxHealth = 600;
+	roadHogData.maxNumWeapons = 2;
+	roadHogData.name = "Road Hog";
+	roadHogData.specialAttackTime = 30.0f;
+	roadHogData.weaponSwitchTime = 2.0f;
+	CharacterData* pRoadHogData = &roadHogData;
+	CharacterRoadHog roadHog(pRoadHogData);
 
-	//variables mccree
-	const std::string mcCreeName = "McCree";
-	Gun revolver(35, 70, 6, 1.5f, 0.5f, mcCreeName, "Revolver");
+	//mcCree character
+	CharacterData mcCreeData;
+	mcCreeData.maxHealth = 200;
+	mcCreeData.maxNumWeapons = 1;
+	mcCreeData.name = "McCree";
+	CharacterData* pMcCreeData = &mcCreeData;
+	CharacterMcCree mcCree(pMcCreeData);
 
-	//Characters
-	CharacterMcCree mcCree(mcCreeName, 200);
-	CharacterRoadHog roadHog(roadHogName, 600, 30.0f, 2.0f);
+	//roadhog weapons
+	WeaponData tauntPoleData;
+	tauntPoleData.cooldownTime = 1.0f;
+	tauntPoleData.name = "taunt pole";
+	tauntPoleData.ownerName = roadHogData.name;
+	WeaponData* pTauntPoleData = &tauntPoleData;
+	TauntPole tauntPole(pTauntPoleData);
+
+	WeaponData scrapGunData;
+	scrapGunData.cooldownTime = 1.0f;
+	scrapGunData.damageFar = 20;
+	scrapGunData.damageNear = 225;
+	scrapGunData.maxMagazineSize = 4;
+	scrapGunData.name = "scrap gun";
+	scrapGunData.ownerName = roadHogData.name;
+	scrapGunData.reloadTime = 1.5f;
+	WeaponData* pScrapGunData = &scrapGunData;
+	Gun scrapGun(pScrapGunData);
+
+	//mccree weapons
+	WeaponData revolverData;
+	revolverData.cooldownTime = 0.5f;
+	revolverData.damageFar = 35;
+	revolverData.damageNear = 70;
+	revolverData.maxMagazineSize = 6;
+	revolverData.name = "revolver";
+	revolverData.ownerName = mcCreeData.name;
+	revolverData.reloadTime = 1.5f;
+	WeaponData* pRevolverData = &revolverData;
+	Gun revolver(pRevolverData);
 	
 	//Adding weapons and setting targets
 	mcCree.AddWeapon(&revolver);
@@ -46,8 +85,8 @@ int main()
 	//Simulation loop
 	while (running)
 	{
-		roadHog.Update(deltaTime);
-		mcCree.Update(deltaTime);
+		roadHog.Update(dt);
+		mcCree.Update(dt);
 
 		//Exit the loop if either character is out of HP
 		if (mcCree.IsDead())

@@ -1,36 +1,35 @@
 #include "Gun.h"
 
-Gun::Gun(const int damageFar_in, const int damageNear_in, const int magazineSize_in, 
-	const float reloadTime_in, const float fireRate_in, const std::string& ownerName_in, const std::string name_in)
+Gun::Gun(WeaponData* data_in)
 	:
-	Weapon(fireRate_in, ownerName_in, name_in, damageNear_in, damageFar_in),
-	magazineSize(magazineSize_in),
-	bulletsLeft(magazineSize_in),
-	reloadTimer(reloadTime_in)
-{}
-
-void Gun::Update(const float deltaTime)
+	Weapon(data_in),
+	mReloadTimer(data_in->reloadTime)
 {
-	cooldownTimer.Update(deltaTime);
+	mBulletsLeft = data_in->maxMagazineSize;
+}
+
+void Gun::Update(const float dt_in)
+{
+	mCooldownTimer.Update(dt_in);
 
 	if (!HasBullets())
 	{
-		reloadTimer.Update(deltaTime);
+		mReloadTimer.Update(dt_in);
 
-		if (reloadTimer.limitReached())
+		if (mReloadTimer.limitReached())
 		{
 			Reload();
-			std::cout << ownerName << " reloaded his " << name << ".\n" << std::endl;
+			std::cout << mData->ownerName << " reloaded his " << mData->name << ".\n" << std::endl;
 		}
 	}
 }
 
-bool Gun::Attack(const std::string& targetName, const std::string& heroName)
+bool Gun::Attack(const char* targetName_in, const char* ownerName_in)
 {
-	if (cooldownTimer.limitReached() && HasBullets())
+	if (mCooldownTimer.limitReached() && HasBullets())
 	{
-		--bulletsLeft;
-		std::cout << heroName << " used his " << name << " and shot " << targetName << "." << std::endl;
+		std::cout << ownerName_in << " used his " << mData->name << " and shot " << targetName_in << "." << std::endl;
+		--mBulletsLeft;
 		return true;
 	}
 	return false;
@@ -38,16 +37,16 @@ bool Gun::Attack(const std::string& targetName, const std::string& heroName)
 
 void Gun::Reload()
 {
-	bulletsLeft = magazineSize;
+	mBulletsLeft = mData->maxMagazineSize;
 }
 
 bool Gun::HasBullets() const
 {
-	return bulletsLeft > 0;
+	return mBulletsLeft > 0;
 }
 
 void Gun::Reset()
 {
-	reloadTimer.Reset();
-	cooldownTimer.Reset();
+	mReloadTimer.Reset();
+	mCooldownTimer.Reset();
 }

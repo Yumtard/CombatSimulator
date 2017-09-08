@@ -2,7 +2,7 @@
 
 #include "Timer.h"
 #include "Weapon.h"
-#include <string>
+#include "WeaponData.h"
 #include <iostream>
 #include <random>
 #include <fstream>
@@ -12,11 +12,11 @@ class TauntPole :
 	public Weapon
 {
 public:
-	TauntPole(float cooldown, const std::string& ownerName_in, const std::string name_in);
-	virtual bool Attack(const std::string& targetName, const std::string& heroName) override;
+	TauntPole(WeaponData* data_in);
+	virtual bool Attack(const char* targetName_in, const char* ownerName_in) override;
 
 private:
 	std::random_device rd;
 	std::mt19937 rng;
-	std::vector<std::string> insults;
+	std::vector<std::string> mInsults;
 };

@@ -1,38 +1,33 @@
 #include "Weapon.h"
 
-Weapon::Weapon(float cooldown, const std::string& ownerName_in, const std::string name_in)
+Weapon::Weapon(WeaponData* data_in)
 	:
-	cooldownTimer(cooldown),
-	ownerName(ownerName_in),
-	name(name_in)
+	mData(data_in),
+	mCooldownTimer(data_in->cooldownTime)
 {}
 
-Weapon::Weapon(float cooldown, const std::string & ownerName_in, const std::string name_in, int damageNear_in, int damageFar_in)
-	:
-	cooldownTimer(cooldown),
-	ownerName(ownerName_in),
-	damageNear(damageNear_in),
-	damageFar(damageFar_in),
-	name(name_in)
-{}
-
-void Weapon::Update(const float deltaTime)
+void Weapon::Update(const float dt_in)
 {
-	cooldownTimer.Update(deltaTime);
+	mCooldownTimer.Update(dt_in);
 }
 
 int Weapon::GetDamageFar() const
 {
-	return damageFar;
+	return mData->damageFar;
 }
 
 int Weapon::GetDamageNear() const
 {
-	return damageNear;
+	return mData->damageNear;
 }
 
 void Weapon::Reset()
 {
-	cooldownTimer.Reset();
+	mCooldownTimer.Reset();
+}
+
+const char* Weapon::GetName() const
+{
+	return mData->name;
 }
 

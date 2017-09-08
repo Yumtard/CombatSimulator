@@ -1,29 +1,28 @@
 #include "CharacterRoadHog.h"
 
-CharacterRoadHog::CharacterRoadHog(const std::string& name_in, const int health_in, 
-	float specialAttackTimeLimit, float weaponSwitchTimeLimit)
+CharacterRoadHog::CharacterRoadHog(CharacterData* data_in)
 	:
-	Character(name_in, health_in),
-	specialAttackTimer(specialAttackTimeLimit),
-	weaponSwitchTimer(weaponSwitchTimeLimit)
+	Character(data_in),
+	mSpecialAttackTimer(data_in->specialAttackTime),
+	mWeaponSwitchTimer(data_in->weaponSwitchTime)
 {}
 
-void CharacterRoadHog::Update(const float deltaTime)
+void CharacterRoadHog::Update(const float dt_in)
 {
 	if (!IsDead())
 	{
-		weapons[curWeapon]->Update(deltaTime);
-		specialAttackTimer.Update(deltaTime);
-		weaponSwitchTimer.Update(deltaTime);
+		mData->weapons[mCurWeapon]->Update(dt_in);
+		mSpecialAttackTimer.Update(dt_in);
+		mWeaponSwitchTimer.Update(dt_in);
 
 		Attack();
 
-		if (weaponSwitchTimer.limitReached())
+		if (mWeaponSwitchTimer.limitReached())
 		{
 			SwitchWeapon();
 		}
 
-		if (!closeCombat && specialAttackTimer.limitReached())
+		if (!mCloseCombat && mSpecialAttackTimer.limitReached())
 		{
 			SpecialAttack();
 		}
@@ -32,8 +31,8 @@ void CharacterRoadHog::Update(const float deltaTime)
 
 void CharacterRoadHog::SpecialAttack()
 {
-	std::cout << name << " used his special hook skill to get into close combat.\n" << std::endl;
-	closeCombat = true;
+	std::cout << mData->name << " used his special hook skill to get into close combat.\n" << std::endl;
+	mCloseCombat = true;
 	pTarget->IsCloseCombat();
 }
 

@@ -1,25 +1,21 @@
 #pragma once
 
 #include "Timer.h"
-#include <string>
+#include "WeaponData.h"
 #include <iostream>
 
 class Weapon
 {
 public:
-	Weapon(float cooldown, const std::string& ownerName_in, const std::string name_in);
-	Weapon(float cooldown, const std::string& ownerName_in, const std::string name_in, int damageNear_in, int damageFar_in);
-	virtual void Update(const float deltaTime);
-	virtual bool Attack(const std::string& targetName, const std::string& heroName) = 0;
+	Weapon(WeaponData* data_in);
+	virtual void Update(const float dt_in);
+	virtual bool Attack(const char* targetName_in, const char* ownerName_in) = 0;
 	int GetDamageFar() const;
 	int GetDamageNear() const;
 	virtual void Reset();
+	const char* GetName() const;
 
 protected:
-	Timer cooldownTimer;
-	const std::string& ownerName;
-	int damageNear = 0;
-	int damageFar = 0;
-	const std::string name;
-
+	WeaponData* mData = nullptr;
+	Timer mCooldownTimer;
 };

@@ -1,8 +1,9 @@
 #include "TauntPole.h"
+#include <string>
 
-TauntPole::TauntPole(float cooldown, const std::string& ownerName_in, const std::string name_in)
+TauntPole::TauntPole(WeaponData* data_in)
 	:
-	Weapon(cooldown, ownerName_in, name_in),
+	Weapon(data_in),
 	rng(rd())
 {
 	std::ifstream in("insults.txt");
@@ -12,23 +13,23 @@ TauntPole::TauntPole(float cooldown, const std::string& ownerName_in, const std:
 	{
 		while (std::getline(in, str))
 		{
-			insults.push_back(str);
+			mInsults.push_back(str);
 		}
 		in.close();
 	}
 }
 
-bool TauntPole::Attack(const std::string& targetName, const std::string& heroName)
+bool TauntPole::Attack(const char* targetName_in, const char* ownerName_in)
 {
-	if (cooldownTimer.limitReached())
+	if (mCooldownTimer.limitReached())
 	{
-		std::cout << heroName << " used his " << name << " and it displayed this message to " << targetName << ":" << std::endl;
+		std::cout << ownerName_in << " used his " << mData->name << " and it displayed this message to " << targetName_in << ":" << std::endl;
 
-		std::uniform_int_distribution<int> dist(0, (insults.size() - 1));
+		std::uniform_int_distribution<int> dist(0, (int(mInsults.size()) - 1));
 
 		const int msg = dist(rng);
 
-		std::cout << insults[msg] << "\n\n";
+		std::cout << mInsults[msg] << "\n\n";
 	
 		return true;
 	}

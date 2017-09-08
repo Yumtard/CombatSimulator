@@ -1,69 +1,72 @@
 #include "Character.h"
 
-Character::Character(const std::string& name_in, const int health_in)
-	:
-	name(name_in),
-	health(health_in)
-{}
+Character::Character(CharacterData* data_in)
+{
+	mData = data_in;
+	mHealth = mData->maxHealth;
+}
 
-void Character::Update(const float deltaTime)
+void Character::Update(const float dt_in)
 {
 	if (!IsDead())
 	{
-		weapons[curWeapon]->Update(deltaTime);
+		mData->weapons[mCurWeapon]->Update(dt_in);
 		Attack();
 	}
 }
 
 int Character::GetHealth() const
 {
-	return health;
+	return mHealth;
 }
 
 void Character::IsCloseCombat()
 {
-	closeCombat = true;
+	mCloseCombat = true;
 }
 
-void Character::TakeDamage(const int damage)
+void Character::TakeDamage(const int damage_in)
 {
-	health -= damage;
+	mHealth -= damage_in;
 
-	if (health < 0)
+	if (mHealth < 0)
 	{
-		health = 0;
+		mHealth = 0;
 	}
-	std::cout << name << " took " <<  damage <<" damage\n"
-		<< name << " has " << health << " HP left.\n\n";
+	std::cout << mData->name << " took " <<  damage_in <<" damage\n"
+		<< mData->name << " has " << mHealth << " HP left.\n\n";
 }
 
-const std::string& Character::GetName() const
+const char* Character::GetName() const
 {
-	return name;
+	return mData->name;
 }
 
 bool Character::IsDead() const
 {
-	return health <= 0;
+	return mHealth <= 0;
 }
 
 void Character::AddWeapon(Weapon * weapon_in)
 {
-	numWeapons++;
-	weapons.push_back(weapon_in);
+	if (mNumWeapons != mData->maxNumWeapons)
+	{
+		mNumWeapons++;
+		mData->weapons.push_back(weapon_in);
+	}
 }
 
 void Character::SwitchWeapon()
 {
-	weapons[curWeapon]->Reset();
+	mData->weapons[mCurWeapon]->Reset();
 
-	if ((curWeapon + 1) == numWeapons)
+	if ((mCurWeapon + 1) == mNumWeapons)
 	{
-		curWeapon = 0;
+		mCurWeapon = 0;
 	}
 	else
 	{
-		curWeapon++;
+		mCurWeapon++;
 	}
 }
 
@@ -74,20 +77,18 @@ void Character::SetTarget(Character * pTarget_in)
 
 void Character::Attack()
 {
-	const std::string targetName = pTarget->GetName();
-
-	if (closeCombat)
+	if (mCloseCombat)
 	{
-		const int dmgNear = weapons[curWeapon]->GetDamageNear();
-		if (weapons[curWeapon]->Attack(targetName, name) && dmgNear > 0)
+		const int dmgNear = mData->weapons[mCurWeapon]->GetDamageNear();
+		if (mData->weapons[mCurWeapon]->Attack(pTarget->GetName(), mData->name) && dmgNear > 0)
 		{
 			pTarget->TakeDamage(dmgNear);
 		}
 	}
 	else
 	{
-		const int dmgFar = weapons[curWeapon]->GetDamageFar();
-		if (weapons[curWeapon]->Attack(targetName, name) && dmgFar > 0)
+		const int dmgFar = mData->weapons[mCurWeapon]->GetDamageFar();
+		if (mData->weapons[mCurWeapon]->Attack(pTarget->GetName(), mData->name) && dmgFar > 0)
 		{
 			pTarget->TakeDamage(dmgFar);
 		}

@@ -1,8 +1,8 @@
 #include "CharacterMcCree.h"
 
-CharacterMcCree::CharacterMcCree(const std::string& name_in, const int health_in)
+CharacterMcCree::CharacterMcCree(CharacterData* data_in)
 	:
-	Character(name_in, health_in)
+	Character(data_in)
 {}
 
 void CharacterMcCree::SpecialAttack()

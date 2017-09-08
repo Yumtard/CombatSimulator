@@ -3,13 +3,12 @@
 class Timer
 {
 public:
-	Timer() = default;
 	Timer(float limit_in);
 	bool limitReached();
-	void Update(float deltaTime);
+	void Update(float dt_in);
 	void Reset();
 
 private:
-	float counter = 0.0f;
-	const float limit = 0.0f;
+	float mCounter = 0.0f;
+	const float mLimit = 0.0f;
 };

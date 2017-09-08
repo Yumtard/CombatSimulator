@@ -2,25 +2,25 @@
 
 Timer::Timer(float limit_in)
 	:
-	limit(limit_in)
+	mLimit(limit_in)
 {}
 
 bool Timer::limitReached()
 {
-	if (counter >= limit)
+	if (mCounter >= mLimit)
 	{
-		counter = 0.0f;
+		mCounter = 0.0f;
 		return true;
 	}
 	return false;
 }
 
-void Timer::Update(float deltaTime)
+void Timer::Update(float dt_in)
 {
-	counter += deltaTime;
+	mCounter += dt_in;
 }
 
 void Timer::Reset()
 {
-	counter = 0.0f;
+	mCounter = 0.0f;
 }

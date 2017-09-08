@@ -30,12 +30,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
+    <ClInclude Include="CharacterData.h" />
     <ClInclude Include="CharacterMcCree.h" />
     <ClInclude Include="CharacterRoadHog.h" />
     <ClInclude Include="TauntPole.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="Weapon.h" />
+    <ClInclude Include="WeaponData.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{CD4298AD-264B-46C6-95CF-3943B2CD02E5}</ProjectGuid>
